@@ -1,12 +1,14 @@
 # ZJU Network Auto Login
 
-浙大校园网大约每半个月就要重新认证一次。对放在机房、办公室或家里的服务器和远程电脑来说，认证失效后网络会直接中断，远程桌面、SSH 和其他服务也会随之断开。这个小工具会在发现认证失效时自动打开校园网登录页，由 Chrome 自动填充已保存的账号密码，再点击登录按钮，帮助远程设备自己恢复网络，不必有人守在电脑旁边操作。
+浙大校园网每半个月需要重新认证一次。对于放在机房、办公室的服务器来说，认证失效后网络会中断，远程桌面、SSH 和其他服务也会断开。这个工具可以自动打开校园网认证页面，由 Chrome 自动填充已保存的账号密码，再自动点击登录按钮，帮助设备恢复网络。
+
+工具由 Windows PowerShell 脚本和 Chrome 扩展组成。Windows 检测到网络认证状态变化后，脚本会访问浙大校园网门户；确认需要认证时，使用指定的 Chrome 配置文件打开登录页面。Chrome 扩展只在浙大校园网登录页面中查找并点击登录按钮，不读取账号、密码、Cookie 或表单内容。使用前需要先在 Chrome 中手动登录一次并保存密码，再加载本项目的 Chrome 扩展。脚本通过 Windows 的 NCSI 4038 网络事件触发，运行状态和日志保存在 %LOCALAPPDATA%\ZjuNetworkAutoLogin。
 
 > 本项目为个人维护的非官方工具，与浙江大学、浙江大学网络与信息化中心及校园网运营方均无隶属、授权或背书关系。请遵守学校网络、账号和信息安全规定，并自行承担使用风险。
 
 ## English summary
 
-ZJU campus network usually asks for re-authentication about every two weeks. When that happens on a server or remote PC, the network can drop and take remote desktop, SSH, and other services offline. This small helper opens the campus login page, lets Chrome fill its saved credentials, and clicks the existing Login button so the machine can recover without someone being physically present. It never stores or reads credentials. This is an unofficial project and is not affiliated with Zhejiang University.
+ZJU campus network requires re-authentication every two weeks. For servers in machine rooms or offices, an expired authentication session can interrupt the network and disconnect remote desktop, SSH, and other services. This tool opens the campus authentication page, lets Chrome fill its saved credentials, and automatically clicks the Login button to help the device recover its network connection. It consists of a Windows PowerShell script and a Chrome extension. The script responds to Windows network-status changes and uses the specified Chrome profile; the extension only finds and clicks the login button on the ZJU campus login page and does not read credentials, cookies, or form contents. Before use, log in once and save the password in Chrome, then load this Chrome extension. The script is triggered by Windows NCSI event 4038, with runtime state and logs stored in `%LOCALAPPDATA%\ZjuNetworkAutoLogin`.
 
 ## 要求
 
