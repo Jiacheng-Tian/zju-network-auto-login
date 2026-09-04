@@ -40,7 +40,7 @@ jobs:
               'scripts\Invoke-ZjuNetworkAuth.ps1'
               'scripts\Uninstall.ps1'
               'scripts\ZjuNetworkAuth.psm1'
-            )
+            ) | Sort-Object
             if (($actual -join "`n") -ne ($expected -join "`n")) { throw "Unexpected release archive contents: $($actual -join ', ')" }
           }
           finally { $zip.Dispose() }
