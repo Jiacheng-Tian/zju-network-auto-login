@@ -1,0 +1,25 @@
+# User configuration and runtime state
+config.json
+logs/
+state.json
+dist/
+temp/
+tmp/
+*.tmp
+testResults.xml
+
+# Local Chrome profiles and browser databases
+browser-profile/
+browser-data/
+chrome-profile/
+ChromeProfile/
+**/History
+**/History-journal
+**/Cookies
+**/Cookies-journal
+**/Login Data
+**/Login Data-journal
+**/Web Data
+**/Web Data-journal
+**/Network/
+**/Local State

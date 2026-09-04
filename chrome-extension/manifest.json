@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "ZJU Network Auto Login",
+  "version": "1.0.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://net.zju.edu.cn/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

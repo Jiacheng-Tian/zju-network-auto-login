@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Pester 5.7.1
+        shell: powershell
+        run: Install-Module Pester -RequiredVersion 5.7.1 -Scope CurrentUser -Force -SkipPublisherCheck
+      - name: Run Pester
+        shell: powershell
+        run: |
+          Import-Module Pester -RequiredVersion 5.7.1 -Force
+          Invoke-Pester -Path tests -CI -Output Detailed
+      - name: Check extension syntax
+        run: node --check chrome-extension/content.js
+      - name: Build and verify release archive
+        shell: powershell
+        run: |
+          $archive = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\New-ReleasePackage.ps1
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $zip = [System.IO.Compression.ZipFile]::OpenRead($archive)
+          try {
+            $actual = @($zip.Entries | ForEach-Object { $_.FullName.Replace('/', '\') } | Sort-Object)
+            $expected = @(
+              'LICENSE'
+              'README.md'
+              'chrome-extension\content.js'
+              'chrome-extension\manifest.json'
+              'config.example.json'
+              'scripts\Install.ps1'
+              'scripts\Invoke-ZjuNetworkAuth.ps1'
+              'scripts\Uninstall.ps1'
+              'scripts\ZjuNetworkAuth.psm1'
+            )
+            if (($actual -join "`n") -ne ($expected -join "`n")) { throw "Unexpected release archive contents: $($actual -join ', ')" }
+          }
+          finally { $zip.Dispose() }
