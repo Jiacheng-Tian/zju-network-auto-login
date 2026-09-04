@@ -1,12 +1,12 @@
 # ZJU Network Auto Login
 
-这是一个面向 Windows 和 Google Chrome 的浙大校园网辅助工具。PowerShell 任务在 Windows 网络连通性状态变化后检测浙江大学网络门户；发现指定的 HTTPS 登录页时，使用已有 Chrome 配置文件打开该页面。Chrome 扩展只在 `https://net.zju.edu.cn/*` 的登录页等待并点击登录按钮，不读取账号、密码、Cookie，也不请求网络 API。
+浙大校园网大约每半个月就要重新认证一次。对放在机房、办公室或家里的服务器和远程电脑来说，认证失效后网络会直接中断，远程桌面、SSH 和其他服务也会随之断开。这个小工具会在发现认证失效时自动打开校园网登录页，由 Chrome 自动填充已保存的账号密码，再点击登录按钮，帮助远程设备自己恢复网络，不必有人守在电脑旁边操作。
 
 > 本项目为个人维护的非官方工具，与浙江大学、浙江大学网络与信息化中心及校园网运营方均无隶属、授权或背书关系。请遵守学校网络、账号和信息安全规定，并自行承担使用风险。
 
 ## English summary
 
-Windows helper for the ZJU captive portal. A current-user scheduled task opens the approved ZJU portal in Chrome when Windows reports a network change; the unpacked Chrome extension clicks the portal's existing login button. It never stores or reads credentials. This is an unofficial project and is not affiliated with Zhejiang University.
+ZJU campus network usually asks for re-authentication about every two weeks. When that happens on a server or remote PC, the network can drop and take remote desktop, SSH, and other services offline. This small helper opens the campus login page, lets Chrome fill its saved credentials, and clicks the existing Login button so the machine can recover without someone being physically present. It never stores or reads credentials. This is an unofficial project and is not affiliated with Zhejiang University.
 
 ## 要求
 
