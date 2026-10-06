@@ -6,7 +6,7 @@ $ErrorActionPreference = 'Stop'
 
 $repositoryRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $distDirectory = Join-Path $repositoryRoot 'dist'
-$archivePath = Join-Path $distDirectory 'zju-network-auto-login-v1.0.0.zip'
+$archivePath = Join-Path $distDirectory 'zju-network-auto-login-v1.1.0.zip'
 $stagingDirectory = Join-Path ([System.IO.Path]::GetTempPath()) ("zju-network-auto-login-$([guid]::NewGuid().ToString('N'))")
 $releaseFiles = @(
     'scripts\Install.ps1'

@@ -552,7 +552,7 @@ Describe 'Chrome launch arguments and scheduled task XML' {
         }
     }
 
-    It 'creates current-user NCSI XML with dynamic safely quoted runner and config paths' {
+    It 'creates current-user dual-event task XML with dynamic safely quoted runner and config paths' {
         $runner = Join-Path $TestDrive 'relocated & auth\Invoke-ZjuNetworkAuth.ps1'
         $configPath = Join-Path $TestDrive 'relocated & auth\custom config.json'
         $xmlText = Get-ZjuAuthTaskXml -TaskName 'ZJU Network Authentication' -UserSid 'S-1-5-21-100-200-300-1001' -RunnerPath $runner -ConfigPath $configPath
@@ -560,6 +560,8 @@ Describe 'Chrome launch arguments and scheduled task XML' {
 
         $xmlText | Should -Match 'Microsoft-Windows-NCSI/Operational'
         $xmlText | Should -Match 'EventID=4038'
+        $xmlText | Should -Match 'Microsoft-Windows-NetworkProfile/Operational'
+        $xmlText | Should -Match 'EventID=4004'
         $xmlText | Should -Match 'InteractiveToken'
         $xmlText | Should -Match 'IgnoreNew'
         $taskXml.Task.Actions.Exec.Arguments | Should -Match '-WindowStyle Hidden'
